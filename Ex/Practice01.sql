@@ -94,7 +94,7 @@ SELECT
 FROM
     departments
 ORDER BY
-    department_name DESC;
+    length(department_name) DESC;
     --?
     
 --9번
