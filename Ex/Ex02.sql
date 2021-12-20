@@ -163,7 +163,11 @@ FROM
 SELECT
     first_name,
     commission_pct,
-    nvl(commission_pct, 0),
-    nvl2(commission_pct, 100, 0)
+    nvl(
+        commission_pct, 0
+    ),
+    nvl2(
+        commission_pct, 100, 0
+    )
 FROM
     employees;

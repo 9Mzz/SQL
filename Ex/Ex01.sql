@@ -337,7 +337,7 @@ FROM
 WHERE
     salary >= 10000
 ORDER BY
-    salary desc;
+    salary DESC;
     
 -- 부서번호를 오름차순으로 정렬하고 부서번호가 같으면 급여가 높은 사람부터 부서번호 급여 이름을 출력하세요
 SELECT
