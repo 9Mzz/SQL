@@ -146,28 +146,25 @@ WHERE
     
 --8번
 SELECT
-    de.department_id   "부서 번호",
-    de.department_name "부서 이름",
-    ma.first_name      "매니저 이름",
-    lo.city            "도시",
-    co.country_name    "나라 이름",
-    re.region_name     "지역 이름"
+    de.department_id,
+    de.department_name,
+    ma.first_name,
+    lo.city,
+    co.country_name,
+    re.region_name
 FROM
     departments de,
-    employees   em,
     employees   ma,
     locations   lo,
     countries   co,
     regions     re
 WHERE
-    em.manager_id = ma.manager_id
-    AND de.department_id = em.department_id
+    de.department_id = ma.department_id
+    AND de.manager_id = ma.employee_id
     AND de.location_id = lo.location_id
     AND lo.country_id = co.country_id
-    AND co.region_id = re.region_id
-ORDER BY
-    de.department_id ASC;
-    
+    AND co.region_id = re.region_id;
+
 --9번
 SELECT
     em.employee_id     사번,
@@ -181,6 +178,5 @@ FROM
 WHERE
     em.manager_id = ma.manager_id
     AND em.department_id = de.department_id (+)
-
-order by em.employee_id asc    
-;
+ORDER BY
+    em.employee_id ASC;
