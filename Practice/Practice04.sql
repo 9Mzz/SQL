@@ -63,7 +63,7 @@ WHERE
     )
 ORDER BY
     salary ASC;
---평균급여, 최대급여 어떡하지..?
+    
 
 --문제3.
 --직원중 Steven(first_name) king(last_name)이 소속된 부서(departments)가 있는 곳의 주소
