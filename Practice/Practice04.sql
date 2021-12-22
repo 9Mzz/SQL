@@ -180,13 +180,137 @@ WHERE
 --연봉 총합이 가장 높은 업무부터 업무명(job_title)과 연봉 총합을 조회하시오
 --(19건)
 
+-- 업무명, 연봉 총합
+SELECT
+    jo.job_title,
+    SUM(em.salary)
+FROM
+    employees em,
+    jobs      jo
+WHERE
+    jo.job_id = em.job_id
+GROUP BY
+    jo.job_title
+ORDER BY
+    SUM(em.salary) DESC;
 
 --문제7.
 --자신의 부서 평균 급여보다 연봉(salary)이 많은 직원의 직원번호(employee_id), 이름
 --(first_name)과 급여(salary)을 조회하세요
 --(38건)
 
+--자신의 부서 평균 급여
+SELECT
+    department_id,
+    AVG(salary) salary
+FROM
+    employees
+GROUP BY
+    department_id;
+
+--직원번호, 이름, 급여 조회
+SELECT
+    employee_id,
+    first_name,
+    salary
+FROM
+    employees;
+
+--결합
+SELECT
+    em.employee_id,
+    em.first_name,
+    em.salary
+FROM
+    employees em,
+    (
+        SELECT
+            department_id,
+            AVG(salary) salary
+        FROM
+            employees
+        GROUP BY
+            department_id
+    )         em1
+WHERE
+    em.department_id = em1.department_id
+    AND em.salary > em1.salary;
 
 --문제8.
 --직원 입사일이 11번째에서 15번째의 직원의 사번, 이름, 급여, 입사일을 입사일 순서로 출력
 --하세요
+--직원 입사일
+SELECT
+    hire_date
+FROM
+    employees
+ORDER BY
+    hire_date DESC;
+
+--직원의 사번, 이름, 급여, 입사일
+SELECT
+    ROWNUM,
+    employee_id,
+    first_name,
+    salary,
+    hire_date
+FROM
+    employees;
+
+--입사일이 11번째에서 15번째
+SELECT
+    ROWNUM,
+    employee_id,
+    first_name,
+    salary
+FROM
+    employees
+WHERE
+    ROWNUM >= 11
+    AND ROWNUM <= 15 --> 출력 안됨
+    ;
+
+--1차 결합
+SELECT
+    ROWNUM,
+    employee_id,
+    first_name,
+    salary,
+    hire_date
+FROM
+    (
+        SELECT
+            *
+        FROM
+            employees
+        ORDER BY
+            hire_date DESC
+    );
+--최종 결합
+SELECT
+    r.ron,
+    r.employee_id,
+    r.first_name,
+    r.salary,
+    r.hire_date
+FROM
+    (
+        SELECT
+            ROWNUM ron,
+            employee_id,
+            first_name,
+            salary,
+            hire_date
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    employees
+                ORDER BY
+                    hire_date DESC
+            ) o
+    ) r
+WHERE
+    r.ron >= 11
+    AND r.ron <= 15;

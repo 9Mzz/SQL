@@ -37,6 +37,7 @@ WHERE
             first_name = 'Den'
     );
 
+
 --예제)
 --급여를 가장 적게 받는 사람의 이름, 급여, 사원번호는?
 
@@ -71,6 +72,7 @@ WHERE
             employees
     );
 
+
 --예제)
 --평균 급여보다 적게 받는 사람의 이름, 급여를 출력하세요?
 --1. 평균급여?
@@ -101,6 +103,7 @@ WHERE
         FROM
             employees
     );
+
 
 /***********************************
 *Sub Query(다중행)
@@ -153,6 +156,7 @@ WHERE
         WHERE
             department_id = 110
     );
+
 
 --예제)
 --각 부서별로 최고급여를 받는 사원을 출력하세요
@@ -228,6 +232,7 @@ WHERE
             department_id = 110
     ); 
 
+
 -- all 연산자
 --부서번호가 110인 직원의 급여 보다 큰 모든 직원의 
 --사번, 이름, 급여를 출력하세요.(and연산--> 12008보다 큰)
@@ -267,29 +272,15 @@ WHERE
         WHERE
             department_id = 110
     );
+                    
+/************************************************************                    
+*************************************************************                    
+*************************************************************/ 
 
-SELECT
-    department_id,
-    first_name,
-    salary
-FROM
-    employees
-WHERE
-    salary IN (
-        SELECT
-            salary
-        FROM
-            employees
-        WHERE
-            department_id = 110
-    );
-----------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------
+--where 절 서브쿼리
+--각 부서별로 최고급여를 받는 사원을 출력하세요 
 
---각 부서별로 최고급여를 받는 사원을 출력하세요
-
---01. 각 부서별 최고 급여 리스트
+--01. 각부서별 최고 급여 리스트
 SELECT
     department_id,
     MAX(salary)
@@ -297,7 +288,8 @@ FROM
     employees
 GROUP BY
     department_id;
---02. 직원 리스트에서 부서별 최고 급여를 받는 사람을 구한다.
+
+--02. 직원리스트에서 부서별 최고 급여를 받는 사람을 구한다.
 SELECT
     first_name,
     salary,
@@ -305,32 +297,30 @@ SELECT
 FROM
     employees
 WHERE
-    salary = 11008
+    salary = 11000
     AND department_id = 30;
 
---
 SELECT
-    *
+    first_name,
+    salary,
+    department_id
 FROM
     employees
 WHERE
     ( department_id, salary ) IN (
         SELECT
-            department_id, MAX(salary) salary
+            department_id, MAX(salary)
         FROM
             employees
         GROUP BY
             department_id
     );
-    
+
+
 --테이블 서브쿼리
---각 부서별 최고급여를 받는 사원을 출력하세요
---01. 각 부서별 최고 급여 리스트 --> join 에 이용할 테이블로 사용에정
-SELECT
-    COUNT(*)
-FROM
-    employees;
------------------------------
+--각 부서별로 최고급여를 받는 사원을 출력하세요 
+
+--01. 각부서별 최고 급여 리스트  --> join 에 이용할 테블로 사용예정
 SELECT
     department_id,
     MAX(salary)
@@ -342,9 +332,9 @@ GROUP BY
 SELECT
     em.first_name,
     em.salary,
-    ms.salary,
     em.department_id,
-    ms.department_id
+    ms.department_id,
+    ms.salary
 FROM
     employees em,
     (
