@@ -26,7 +26,7 @@ ALTER TABLE book DROP ( author );
 RENAME book TO article;
 
 --테이블 완전 삭제
-DROP TABLE article;
+DROP TABLE author;
 
 SELECT
     *
@@ -103,36 +103,60 @@ SET
     author_desc = '토지작가';
 
 --sequence(시퀸스) 번호표 뽑기
-create SEQUENCE seq_author_id INCREMENT by 1 start with 1;
+CREATE SEQUENCE seq_author_id INCREMENT BY 1 START WITH 1;
 
 --시퀸스 넣기
-insert into author values (seq_author_id.nextval, '박경리', '토지 작가');
+INSERT INTO author VALUES (
+    seq_author_id.NEXTVAL,
+    '박경리',
+    '토지 작가'
+);
 
-insert into author values(seq_author_id.nextval, '강풀', '삼국지 작가');
+INSERT INTO author VALUES (
+    seq_author_id.NEXTVAL,
+    '강풀',
+    '삼국지 작가'
+);
 
 --시퀀스 조회
-select * from user_sequences;
+SELECT
+    *
+FROM
+    user_sequences;
 
 --현재 시퀸스 조회
-SELECT seq_author_id.currval 
-FROM dual;
+SELECT
+    seq_author_id.CURRVAL
+FROM
+    dual;
 
 --다음 시퀸스 조회
-SELECT seq_author_id.nextval 
-FROM dual;
+SELECT
+    seq_author_id.NEXTVAL
+FROM
+    dual;
 
 --시퀸스 삭제
 DROP SEQUENCE seq_author_id;
+
+--컬럼 삭제
+DROP TABLE author;
 
 --삭제 주의(where)절 없음!!
 DELETE FROM author;
 
 --작가 테이블 정보 삭제 삭제문 + where
-DELETE FROM author where author_id = 21;
---시퀸스 삭제
-drop sequence seq_author_id;
+DELETE FROM author
+WHERE
+    author_id = 21;
 
 --조회
-SELECT * FROM author; 
+SELECT
+    *
+FROM
+    author;
 
-SELECT * fROM book;
+SELECT
+    *
+FROM
+    book;
