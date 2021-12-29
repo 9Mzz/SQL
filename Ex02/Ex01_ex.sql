@@ -131,14 +131,14 @@ increment by 1
 start with 1;
 
 --시퀸스 삭제
-DROP SEQUENCE seq_book_id;
+DROP SEQUENCE seq_author_id;
 
 
 --컬럼 삭제
-DROP TABLE author;
+DROP TABLE book;
 
 --삭제 주의(where)절 없음!!
-DELETE FROM author;
+DELETE FROM book;
 
 SELECT
     *
